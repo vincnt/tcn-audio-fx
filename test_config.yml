@@ -1,0 +1,42 @@
+# Main compute configuration.
+compute:
+
+  # Add cloud configuration here.
+  provider:
+
+    credentials: cc-8d4e4           # Cloud key ID
+    region: us-east-1             # Cloud region
+    vendor: aws                   # Vendor, only aws
+
+  # Training configuration.
+  train:
+
+    cpus: 1                       # Number of CPUs
+    disk_size: 200                # Disk size
+    gpus: 0                       # Number of GPUs
+    instance: t2.xlarge           # AWS instance type
+    memory: null                  # RAM memory
+    nodes: 0                      # Nodes to start with
+    scale_down_seconds: 1800      # Second in between every scaling down evaluation
+    datastore_name: simple-overdrive          # Datastore name to use 
+    datastore_version: null       # Datastore version number
+    datastore_mount_dir: /dataset     # Where to mount the datastore
+    use_spot: true               # If we should use spot instances
+    framework: "lightning"        # Which framework to use 
+
+    # Pass in environment variables
+    environment:                
+      MY_ENVIRONMENT_VARIABLE: "example"
+
+    actions:
+      on_image_build:
+        - apt-get install libsndfile1
+        
+# Add your script settings here 
+hyper_params:
+  settings:
+    strategy: random_search     # either random_search or grid_search
+    trials: 2                   # only used in random_search
+  params:
+    learning_rate: uniform(0.001, 0.008, 20)
+    gamma: 0.234

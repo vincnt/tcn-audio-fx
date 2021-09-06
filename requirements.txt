@@ -1,0 +1,7 @@
+numpy==1.19.5
+soundfile
+pysndfx==0.3.6
+torch==1.9.0
+pytorch_lightning==1.4.1
+auraloss
+comet-ml==3.14.0
